@@ -1,0 +1,43 @@
+<h2>Create a minimal DMP</h2>
+
+<p>Registers a DMP with the hub.</p>
+
+<p>Make sure you have logged in above!</p>
+
+<%= form_with url: dmp_create_minimal_test_path, remote: true, method: :post do %>
+  <div>
+    <%= label_tag :token, 'Authorization Token:' %>
+    <%= text_field_tag :token, nil, class: 'auth_token' %>
+  </div>
+  <div>
+    <%= label_tag :title, 'Title:' %>
+    <%= text_field_tag :title %>
+  </div>
+  <div>
+    <%= label_tag :contact_name, 'Primary Contact Name:' %>
+    <%= text_field_tag :contact_name %>
+  </div>
+  <div>
+    <%= label_tag :contact_email, 'Primary Contact Email:' %>
+    <%= text_field_tag :contact_email %>
+  </div>
+  <div>
+    <%= label_tag :contact_id, 'Primary Contact ORCID:' %>
+    <%= text_field_tag :contact_id %>
+  </div>
+  <%= submit_tag 'Register DMP' %>
+<% end %>
+<div id="auth_create_minimal_errors" style="color: red;"></div>
+<pre id="auth_create_minimal_results" style="background-color: #f2f2f2; padding:10px 5px"></pre>
+
+<script>
+  function displayCreateMinimalTestResults(data) {
+    if (data.errors) {
+      document.getElementById('auth_create_minimal_errors').innerHTML = data.errors;
+      document.getElementById('auth_create_minimal_results').innerHTML = '';
+    } else {
+      document.getElementById('auth_create_minimal_errors').innerHTML = '';
+      document.getElementById('auth_create_minimal_results').innerHTML = JSON.stringify(data, undefined, 2);
+    }
+  }
+</script>

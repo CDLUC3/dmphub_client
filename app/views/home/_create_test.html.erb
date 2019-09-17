@@ -1,4 +1,4 @@
-<h2>Create a DMP</h2>
+<h2>Create a DMP via JSON</h2>
 
 <p>Registers a DMP with the hub.</p>
 
@@ -10,20 +10,8 @@
     <%= text_field_tag :token, nil, class: 'auth_token' %>
   </div>
   <div>
-    <%= label_tag :title, 'Title:' %>
-    <%= text_field_tag :title %>
-  </div>
-  <div>
-    <%= label_tag :contact_name, 'Primary Contact Name:' %>
-    <%= text_field_tag :contact_name %>
-  </div>
-  <div>
-    <%= label_tag :contact_email, 'Primary Contact Email:' %>
-    <%= text_field_tag :contact_email %>
-  </div>
-  <div>
-    <%= label_tag :contact_id, 'Primary Contact ORCID:' %>
-    <%= text_field_tag :contact_id %>
+    <%= label_tag :json, 'JSON:' %>
+    <%= text_area_tag :json %>
   </div>
   <%= submit_tag 'Register DMP' %>
 <% end %>

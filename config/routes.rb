@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'dmp_index_test', format: :json, to: 'api_v1#dmps_test'
   get 'dmp_show_test', format: :json, to: 'api_v1#dmp_test'
 
+  post 'dmp_create_minimal_test', format: :json, to: 'api_v1#dmp_create_minimal_test'
   post 'dmp_create_test', format: :json, to: 'api_v1#dmp_create_test'
 
 end

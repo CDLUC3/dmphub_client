@@ -73,7 +73,7 @@ class ApiV1Controller < ApplicationController
   end
 
   # TESTS the `POST /data_management_plans` endpoint
-  def dmp_create_test
+  def dmp_create_minimal_test
     if params[:token].blank?
       json = { 'errors': 'You must generate a token first!' }
     elsif params[:title].blank? || params[:contact_name].blank? || params[:contact_email].blank? ||
@@ -106,7 +106,28 @@ class ApiV1Controller < ApplicationController
         json = { 'errors': se.message }
       end
     end
-    render json: JSON.pretty_generate(json), callback: 'displayCreateTestResults'
+    render json: JSON.pretty_generate(json), callback: 'displayCreateMinimalTestResults'
   end
 
+  # TESTS the `POST /data_management_plans` endpoint
+  def dmp_create_test
+    if params[:token].blank?
+      json = { 'errors': 'You must generate a token first!' }
+    elsif params[:json].blank?
+      json = { 'errors': 'You must provide JSON data' }
+    else
+      begin
+        input = JSON.parse(params.fetch(:json, {}))
+        hdrs = DEFAULT_HEADERS.merge({ 'Authorization': "Bearer #{params[:token]}" })
+        resp = HTTParty.post('http://localhost:3000/api/v1/data_management_plans', body: input, headers: hdrs)
+        payload = JSON.parse(resp.body)
+        json = { 'dmp': payload } if resp.code == 201
+        json = { 'errors': "#{payload['error']} - #{payload['error_description']}" } unless resp.code == 201
+
+      rescue StandardError => se
+        json = { 'errors': se.message }
+      end
+    end
+    render json: JSON.pretty_generate(json), callback: 'displayCreateTestResults'
+  end
 end
