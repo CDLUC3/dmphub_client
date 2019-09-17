@@ -1,0 +1,25 @@
+<style>
+  form {
+    display: flex;
+  }
+  form div {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px 10px 0;
+  }
+  form label {
+    font-weight: bold;
+  }
+</style>
+
+<h1>DMPHub Client</h1>
+
+<p>This application can be used to test the functionality of a local DMPHub installation.</p>
+
+<%= render partial: 'auth_test' %>
+
+<%= render partial: 'index_test' %>
+
+<%= render partial: 'show_test' %>
+
+<%= render partial: 'create_test' %>

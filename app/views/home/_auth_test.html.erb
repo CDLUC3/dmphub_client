@@ -1,0 +1,39 @@
+<h2>Authorization</h2>
+
+<p>You need to login and retrieve an authorization token before accessing any of the other API endpoints. To test it out, please enter your client credentials in the boxes provided and click the button to test.</p>
+
+<p>Client credentials can be found in the local database in the `oauth_applications` table.</p>
+
+<%= form_with scope: :client, url: auth_test_path, remote: true do %>
+  <div>
+    <%= label_tag :client_uid, 'Client UID:' %>
+    <%= text_field_tag :client_uid %>
+  </div>
+  <div>
+    <%= label_tag :client_secret, 'Client Secret:' %>
+    <%= text_field_tag :client_secret %>
+  </div>
+  <%= submit_tag 'Authorize' %>
+<% end %>
+<div id="auth_test_errors" style="color: red;"></div>
+<pre id="auth_test_results" style="background-color: #f2f2f2; padding:10px 5px"></pre>
+
+<script>
+  function displayAuthTestResults(data) {
+    var auth_tokens = document.getElementsByClassName('auth_token');
+
+    if (data.errors) {
+      document.getElementById('auth_test_errors').innerHTML = data.errors;
+      document.getElementById('auth_test_results').innerHTML = '';
+      for (i = 0; i < auth_tokens.length; i++) {
+        auth_tokens[i].value = '';
+      }
+    } else {
+      document.getElementById('auth_test_errors').innerHTML = '';
+      document.getElementById('auth_test_results').innerHTML = JSON.stringify(data, undefined, 2);
+      for (i = 0; i < auth_tokens.length; i++) {
+        auth_tokens[i].value = data.token.access_token;
+      }
+    }
+  }
+</script>

@@ -1,0 +1,31 @@
+<h2>Display a specific DMP</h2>
+
+<p>Returns a sepecific DMP.</p>
+
+<p>Make sure you have logged in above!</p>
+
+<%= form_with url: dmp_show_test_path, remote: true, method: :get do %>
+  <div>
+    <%= label_tag :token, 'Authorization Token:' %>
+    <%= text_field_tag :token, nil, class: 'auth_token' %>
+  </div>
+  <div>
+    <%= label_tag :doi, 'DMP DOI:' %>
+    <%= text_field_tag :doi, nil %>
+  </div>
+  <%= submit_tag 'Get DMP' %>
+<% end %>
+<div id="auth_show_errors" style="color: red;"></div>
+<pre id="auth_show_results" style="background-color: #f2f2f2; padding:10px 5px"></pre>
+
+<script>
+  function displayShowTestResults(data) {
+    if (data.errors) {
+      document.getElementById('auth_show_errors').innerHTML = data.errors;
+      document.getElementById('auth_show_results').innerHTML = '';
+    } else {
+      document.getElementById('auth_show_errors').innerHTML = '';
+      document.getElementById('auth_show_results').innerHTML = JSON.stringify(data, undefined, 2);
+    }
+  }
+</script>
